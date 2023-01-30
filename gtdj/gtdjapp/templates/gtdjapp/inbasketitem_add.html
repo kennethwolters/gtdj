@@ -1,0 +1,9 @@
+{# This is a Django Template for creating anew in-basket item according to the getting things done methodology#}
+
+{% extends "gtdjapp/base.html" %}
+
+<form action={% url 'in_basket_item_new' %} method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>

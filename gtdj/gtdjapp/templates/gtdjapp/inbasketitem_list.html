@@ -1,0 +1,65 @@
+{# This is a Django Template for listing in-basket items according to the getting things done methodology#}
+
+{% extends 'gtdjapp/base.html' %}
+
+{% block title %}In Basket{% endblock %}
+
+{% block content %}
+
+{% if in_basket_items %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">In Basket</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Process</th>
+                            <th>Delete</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in in_basket_items %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.description }}</td>
+                            <td><a href="{% url 'in_basket_item_detail' item.pk %}" > Process</a></td>
+                            <td><a href="{% url 'in_basket_item_delete' item.pk %}" > Delete from In Basket</a></td>
+                            <td><a href="{% url 'in_basket_item_edit' item.pk %}" > Edit In Basket</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+{% else %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">In Basket</h3>
+            </div>
+            <div class="panel-body">
+                <p>You have no items in your in-basket. You can add items to your in-basket by clicking the "Add to In Basket" button on the item's detail page.</p>
+            </div>
+        </div>
+   {% endif %}
+
+{% endblock %}
+
+
+{% for item in in_basket_items %}
+    <a href="{% url 'in_basket_item_detail' item.pk %}" > Process</a>
+    <a href="{% url 'in_basket_item_delete' item.pk %}" > Delete from In Basket</a>
+    <a href="{% url 'in_basket_item_edit' item.pk %}" > Edit In Basket</a>
+    <p>{{ item.title }}</p>
+    <p>{{ item.description }}</p>
+    <hr>
+{% endfor %}
